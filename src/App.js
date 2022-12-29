@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from "react";
+import AddPayment from "./components/AddPayment";
+import AddServices from "./components/AddServices";
+import ExpiredPaymentsUser from "./components/ExpiredPaymentsUser";
+import ModiefiedServices from "./components/ModiefiedServices";
+import Navbar from "./components/Navbar";
+import PaymentsUser from "./components/PaymentsUser";
 
 function App() {
+  let url = "http://localhost:8000/payment/payment_user/"
+  const fetchPayments = (url) => {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
+  };
+
+  useEffect(() => {
+      fetchPayments(url);
+  },[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Navbar />
+      <PaymentsUser />
+      <ExpiredPaymentsUser /> 
+      {/* <AddPayment />
+      <AddServices />
+      <ModiefiedServices />*/}
+    </Fragment>
   );
 }
 
